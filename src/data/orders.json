@@ -1,0 +1,188 @@
+[
+  {
+    "orderID": "1060f9e4-be45-4516-bb71-5cd97c304254",
+    "orderDate": "2023-09-01",
+    "soldTo": {
+      "id": "1060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "John",
+      "lastName": "Doe",
+      "streetAddress": "Street",
+      "houseNumber": "42",
+      "zip": "10115",
+      "city": "Berlin",
+      "country": "Germany"
+    },
+    "billTo": {
+      "id": "2087f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "streetAddress": "Avenue",
+      "houseNumber": "12B",
+      "zip": "90001",
+      "city": "Los Angeles",
+      "country": "USA"
+    },
+    "shipTo": {
+      "id": "3060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Michael",
+      "lastName": "Johnson",
+      "streetAddress": "Boulevard",
+      "houseNumber": "50",
+      "zip": "75001",
+      "city": "Paris",
+      "country": "France"
+    },
+    "orderValue": 250.0,
+    "taxValue": 20.0,
+    "currencyCode": "USD",
+    "items": [
+      {
+        "itemID": "0001",
+        "productID": "100000101",
+        "quantity": 2,
+        "itemPrice": 100.0
+      },
+      {
+        "itemID": "0002",
+        "productID": "100000102",
+        "quantity": 1,
+        "itemPrice": 50.0
+      }
+    ]
+  },
+  {
+    "orderID": "2060f9e4-be45-4516-bb71-5cd97c304255",
+    "orderDate": "2023-09-05",
+    "soldTo": {
+      "id": "4060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Alice",
+      "lastName": "Brown",
+      "streetAddress": "Maple Street",
+      "houseNumber": "78A",
+      "zip": "60007",
+      "city": "Chicago",
+      "country": "USA"
+    },
+    "billTo": {
+      "id": "5060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Robert",
+      "lastName": "Taylor",
+      "streetAddress": "Pine Street",
+      "houseNumber": "34",
+      "zip": "20001",
+      "city": "Washington",
+      "country": "USA"
+    },
+    "shipTo": {
+      "id": "6060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Emma",
+      "lastName": "Davis",
+      "streetAddress": "Oak Avenue",
+      "houseNumber": "90",
+      "zip": "30004",
+      "city": "Atlanta",
+      "country": "USA"
+    },
+    "orderValue": 300.0,
+    "taxValue": 30.0,
+    "currencyCode": "USD",
+    "items": [
+      {
+        "itemID": "0003",
+        "productID": "100000103",
+        "quantity": 3,
+        "itemPrice": 75.0
+      }
+    ]
+  },
+  {
+    "orderID": "3060f9e4-be45-4516-bb71-5cd97c304256",
+    "orderDate": "2023-09-10",
+    "soldTo": {
+      "id": "7060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "William",
+      "lastName": "Wilson",
+      "streetAddress": "Elm Street",
+      "houseNumber": "5C",
+      "zip": "10001",
+      "city": "New York",
+      "country": "USA"
+    },
+    "billTo": {
+      "id": "8060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Olivia",
+      "lastName": "Martinez",
+      "streetAddress": "Cedar Avenue",
+      "houseNumber": "23",
+      "zip": "40001",
+      "city": "Louisville",
+      "country": "USA"
+    },
+    "shipTo": {
+      "id": "9060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Sophia",
+      "lastName": "Garcia",
+      "streetAddress": "Birch Lane",
+      "houseNumber": "67",
+      "zip": "94101",
+      "city": "San Francisco",
+      "country": "USA"
+    },
+    "orderValue": 150.0,
+    "taxValue": 15.0,
+    "currencyCode": "USD",
+    "items": [
+      {
+        "itemID": "0004",
+        "productID": "100000104",
+        "quantity": 1,
+        "itemPrice": 150.0
+      }
+    ]
+  },
+  {
+    "orderID": "4060f9e4-be45-4516-bb71-5cd97c304257",
+    "orderDate": "2023-09-15",
+    "soldTo": {
+      "id": "1060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Mark",
+      "lastName": "Williams",
+      "streetAddress": "Main Street",
+      "houseNumber": "123",
+      "zip": "90002",
+      "city": "Los Angeles",
+      "country": "USA"
+    },
+    "billTo": {
+      "id": "2087f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "Sarah",
+      "lastName": "Taylor",
+      "streetAddress": "Broadway",
+      "houseNumber": "456",
+      "zip": "10002",
+      "city": "New York",
+      "country": "USA"
+    },
+    "shipTo": {
+      "id": "3060f9e4-be45-4516-bb71-5cd97c304254",
+      "firstName": "David",
+      "lastName": "Johnson",
+      "streetAddress": "Sunset Blvd",
+      "houseNumber": "789",
+      "zip": "94016",
+      "city": "San Francisco",
+      "country": "USA"
+    },
+    "orderValue": 450.0,
+    "taxValue": 35.0,
+    "currencyCode": "USD",
+    "items": [
+      {
+        "itemID": "0005",
+        "productID": "100000105",
+        "quantity": 4,
+        "itemPrice": 110.0
+      }
+    ]
+  }
+]

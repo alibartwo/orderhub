@@ -1,0 +1,14 @@
+node_modules/
+
+*.log
+
+.env
+
+docker-compose.override.yml
+docker-compose.override.yaml
+.dockerignore
+
+.vscode/
+
+.DS_Store
+Thumbs.db
