@@ -22,3 +22,15 @@ th {
 h1 {
   padding-left: 16px;
 }
+
+.search-form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+
+  input {
+    margin-right: 5px;
+    padding: 5px;
+  }
+}
