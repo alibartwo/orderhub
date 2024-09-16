@@ -20,7 +20,7 @@ export interface OrderItem {
   itemPrice: number;
 }
 
-const API_BASE_URL = 'http://188.245.151.183:8080/api/v1/order';
+const API_BASE_URL = 'http://188.245.151.183:8081/api/v1/order';
 
 const getAllOrders = async (): Promise<Order[]> => {
   try {
