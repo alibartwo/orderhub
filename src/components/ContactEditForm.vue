@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-form">
+  <div class="form">
     <form @submit.prevent="handleSubmit">
       <div class="form-field">
         <label for="firstName">First Name</label>
