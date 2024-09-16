@@ -14,7 +14,6 @@
 
 <script setup>
 import { useContactStore } from '../stores/useContactStore';
-import { sampleContacts } from '../data/sampleContacts';
 import { ref } from 'vue';
 import router from '../routers';
 const contactStore = useContactStore();
