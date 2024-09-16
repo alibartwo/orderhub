@@ -1,7 +1,7 @@
 <template>
-  <div class="contacts-container">
+  <div>
     <h1>Contacts</h1>
-    <Card><ContactButtons/></Card>
+    <Card><ContactButtons /></Card>
     <Card><ContactList /></Card>
   </div>
 </template>
@@ -12,8 +12,4 @@ import ContactList from '../components/ContactList.vue';
 import ContactButtons from '../components/ContactButtons.vue';
 </script>
 
-<style lang="scss" scoped>
-.contacts-container {
-  padding: 20px;
-}
-</style>
+<style lang="scss" scoped></style>
