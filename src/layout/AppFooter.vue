@@ -2,7 +2,7 @@
 
 <template>
     <div class="layout-footer">
-        <span class="footer"><i>by</i> alibartu</span>
+        <span class="footer"><i>ascatu front-end challange</i></span>
     </div>
 </template>
 
