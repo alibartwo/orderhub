@@ -9,6 +9,7 @@ import {
   deleteOrderById,
   Order,
 } from '../services/orderService';
+import { sampleOrders } from '../data/sampleOrders';
 
 export const useOrderStore = defineStore('order', () => {
   const orders = ref<Order[]>([]);
@@ -30,6 +31,25 @@ export const useOrderStore = defineStore('order', () => {
       loading.value = false;
     }
   };
+
+  const loadSampleData = async () => {
+    loading.value = true;
+    error.value = null;
+    try {
+      await deleteAllOrders();
+      orders.value = [];
+
+      for (const order of sampleOrders) {
+        await createOrder(order);
+      }
+      await loadOrders();
+    } catch (err) {
+      error.value = 'Error occured while loading the sample data';
+      console.log(err);
+    } finally {
+      loading.value = false;
+    }
+  }
 
   const removeAllOrders = async () => {
     error.value = null;
@@ -99,5 +119,5 @@ export const useOrderStore = defineStore('order', () => {
     }
   };
 
-  return { orders, loadOrders, removeAllOrders, addNewOrder, removeOrder, getOrder, updateOrder };
+  return { orders, loading, error, loadOrders, loadSampleData, removeAllOrders, addNewOrder, removeOrder, getOrder, updateOrder };
 });
