@@ -9,6 +9,7 @@
           <th>First Name</th>
           <th>Last Name</th>
           <th>Address</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,10 @@
           <td>
             {{ formattedAddress(contact) }}
           </td>
+          <td>
+            <button @click="editContact(contact.id)" class="action-button edit">✏️</button>
+            <button @click="deleteContact(contact.id)" class="action-button edit">❌</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -28,7 +33,9 @@
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue';
 import { useContactStore } from '../stores/useContactStore';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const contactStore = useContactStore();
 const contacts = computed(() => contactStore.contacts);
 const loading = computed(() => contactStore.loading);
@@ -40,6 +47,17 @@ onMounted(() => {
 
 const formattedAddress = (contact: any) => {
   return `${contact.country}, ${contact.city}, ${contact.streetAddress}, ${contact.houseNumber}, zip:${contact.zip}`;
+};
+
+const deleteContact = (id: string) => {
+  const confirmation = confirm(`Are you sure you want to delete the contact: ${id}? This action cannot be undone.`);
+  if (confirmation) {
+    contactStore.removeContact(id);
+  }
+};
+
+const editContact = (id: string) => {
+  router.push(`/edit-contact/${id}`);
 };
 </script>
 
