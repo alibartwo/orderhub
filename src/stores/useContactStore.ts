@@ -6,7 +6,6 @@ import {
   deleteAllContacts,
   getContactByID,
   updateContactByID,
-  patchContact,
   deleteContact,
   Person,
 } from '../services/contactService';
@@ -33,7 +32,7 @@ export const useContactStore = defineStore('contact', () => {
     }
   };
 
-  const loadSampleData = async () => {
+  const loadSampleContacts = async () => {
     loading.value = true;
     error.value = null;
     try {
@@ -73,6 +72,8 @@ export const useContactStore = defineStore('contact', () => {
     } catch (err) {
       error.value = 'Error occured while creating new contact';
       console.log(err);
+    } finally {
+      loading.value = false;
     }
   };
 
@@ -97,19 +98,19 @@ export const useContactStore = defineStore('contact', () => {
       error.value = 'Error occured while fetching the contact';
       console.log(err);
     } finally {
-      loading.value = false
+      loading.value = false;
     }
   };
 
-  const updateContact = async (id: string, contact:Person) => {
+  const updateContact = async (id: string, contact: Person) => {
     loading.value = true;
     error.value = null;
 
     try {
       const updatedContact = await updateContactByID(id, contact);
-      const index = contacts.value.findIndex(c => c.id === id);
+      const index = contacts.value.findIndex((c) => c.id === id);
 
-      if(index !== -1 ) {
+      if (index !== -1) {
         contacts.value[index] = updatedContact;
       }
     } catch (err) {
@@ -118,6 +119,17 @@ export const useContactStore = defineStore('contact', () => {
     } finally {
       loading.value = false;
     }
-  }
-  return { contacts, loading, error, loadContacts, removeAllContacts, loadSampleData, addNewContact, removeContact, getContact, updateContact };
+  };
+  return {
+    contacts,
+    loading,
+    error,
+    loadContacts,
+    removeAllContacts,
+    loadSampleData: loadSampleContacts,
+    addNewContact,
+    removeContact,
+    getContact,
+    updateContact,
+  };
 });
