@@ -32,7 +32,7 @@ export const useContactStore = defineStore('contact', () => {
     }
   };
 
-  const loadSampleContacts = async () => {
+  const loadSampleData = async () => {
     loading.value = true;
     error.value = null;
     try {
@@ -126,7 +126,7 @@ export const useContactStore = defineStore('contact', () => {
     error,
     loadContacts,
     removeAllContacts,
-    loadSampleData: loadSampleContacts,
+    loadSampleData,
     addNewContact,
     removeContact,
     getContact,
