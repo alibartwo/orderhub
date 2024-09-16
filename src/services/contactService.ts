@@ -53,7 +53,7 @@ const getContactByID = async (id: string): Promise<Person> => {
   }
 };
 
-const updateContact = async (id: string, contact: Person): Promise<Person> => {
+const updateContactByID = async (id: string, contact: Person): Promise<Person> => {
   try {
     const response: AxiosResponse<Person> = await axios.put(`${API_BASE_URL}/${id}`, contact);
     return response.data;
@@ -81,4 +81,4 @@ const deleteContact = async (id: string): Promise<void> => {
     throw error;
   }
 };
-export { getAllContacts, createContact, deleteAllContacts, getContactByID, updateContact, patchContact, deleteContact };
+export { getAllContacts, createContact, deleteAllContacts, getContactByID, updateContactByID, patchContact, deleteContact };
