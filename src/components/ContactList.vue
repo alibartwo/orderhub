@@ -21,8 +21,8 @@
             {{ formattedAddress(contact) }}
           </td>
           <td>
-            <button @click="editContact(contact.id)" class="action-button edit">✏️</button>
-            <button @click="deleteContact(contact.id)" class="action-button edit">❌</button>
+            <button @click="editContact(contact.id)" class="action-button">✏️</button>
+            <button @click="deleteContact(contact.id)" class="action-button">❌</button>
           </td>
         </tr>
       </tbody>
@@ -34,20 +34,14 @@
 import { computed, onMounted } from 'vue';
 import { useContactStore } from '../stores/useContactStore';
 import { useRouter } from 'vue-router';
+import { useFormatters } from '../composables/useFormatters';
 
+const { formattedAddress } = useFormatters();
 const router = useRouter();
 const contactStore = useContactStore();
 const contacts = computed(() => contactStore.contacts);
 const loading = computed(() => contactStore.loading);
 const error = computed(() => contactStore.error);
-
-onMounted(() => {
-  contactStore.loadContacts();
-});
-
-const formattedAddress = (contact: any) => {
-  return `${contact.country}, ${contact.city}, ${contact.streetAddress}, ${contact.houseNumber}, zip:${contact.zip}`;
-};
 
 const deleteContact = (id: string) => {
   const confirmation = confirm(`Are you sure you want to delete the contact: ${id}? This action cannot be undone.`);
@@ -59,6 +53,10 @@ const deleteContact = (id: string) => {
 const editContact = (id: string) => {
   router.push(`/edit-contact/${id}`);
 };
+
+onMounted(() => {
+  contactStore.loadContacts();
+});
 </script>
 
 <style scoped></style>
