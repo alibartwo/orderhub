@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-form">
+  <div class="form">
     <form @submit.prevent="handleSubmit">
       <div class="form-field">
         <label for="firstName">First Name</label>
@@ -47,11 +47,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useContactStore } from '../stores/useContactStore';
-
 import type { Person } from '../services/contactService';
 import router from '../routers';
+const contactStore = useContactStore();
 
-const contact = ref<Omit<Person, 'id'>>({
+const contact = ref<Person>({
+  id: '',
   firstName: '',
   lastName: '',
   country: '',
@@ -61,12 +62,10 @@ const contact = ref<Omit<Person, 'id'>>({
   zip: '',
 });
 
-const contactStore = useContactStore();
-
 const handleSubmit = async () => {
   try {
-    await contactStore.addNewContact(contact.value as Person); // *
-    alert('Contact saved successfully!'); 
+    await contactStore.addNewContact(contact.value);
+    alert('Contact saved successfully!');
     router.push('/contacts');
   } catch (err) {
     console.error('Error saving contact:', err);
@@ -80,6 +79,7 @@ const handleCancel = () => {
 
 const resetForm = () => {
   contact.value = {
+    id: '',
     firstName: '',
     lastName: '',
     country: '',
