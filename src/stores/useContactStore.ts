@@ -5,7 +5,7 @@ import {
   createContact,
   deleteAllContacts,
   getContactByID,
-  updateContact,
+  updateContactByID,
   patchContact,
   deleteContact,
   Person,
@@ -69,12 +69,55 @@ export const useContactStore = defineStore('contact', () => {
     try {
       const newContact = await createContact(contact);
       contacts.value.push(newContact);
-      console.log('New contact created succesfully:', newContact)
+      console.log('New contact created succesfully:', newContact);
     } catch (err) {
-      error.value = 'Error occured while creating new contact'
-      console.log(err)
+      error.value = 'Error occured while creating new contact';
+      console.log(err);
+    }
+  };
+
+  const removeContact = async (id: string) => {
+    try {
+      await deleteContact(id);
+      contacts.value = contacts.value.filter((contact) => contact.id !== id);
+    } catch (err) {
+      error.value = 'Error occured while deleting the contact';
+      console.log(err);
+    }
+  };
+
+  const getContact = async (id: string) => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      const contact = await getContactByID(id);
+      return contact;
+    } catch (err) {
+      error.value = 'Error occured while fetching the contact';
+      console.log(err);
+    } finally {
+      loading.value = false
+    }
+  };
+
+  const updateContact = async (id: string, contact:Person) => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      const updatedContact = await updateContactByID(id, contact);
+      const index = contacts.value.findIndex(c => c.id === id);
+
+      if(index !== -1 ) {
+        contacts.value[index] = updatedContact;
+      }
+    } catch (err) {
+      error.value = 'Error occured while updating the contact';
+      console.log(err);
+    } finally {
+      loading.value = false;
     }
   }
-
-  return { contacts, loading, error, loadContacts, removeAllContacts, loadSampleData, addNewContact };
+  return { contacts, loading, error, loadContacts, removeAllContacts, loadSampleData, addNewContact, removeContact, getContact, updateContact };
 });
