@@ -37,19 +37,25 @@
       </div>
 
       <div class="form-buttons">
-        <button type="submit" class="submit-button">Create Contact</button>
-        <button type="button" class="cancel-button" @click="handleCancel">Reset</button>
+        <button type="submit" class="submit-button">{{ isCreateMode ? 'Create Contact' : 'Save Changes' }}</button>
+        <button type="button" class="cancel-button" @click="handleCancel">
+          {{ isCreateMode ? 'Reset' : 'Cancel' }}
+        </button>
       </div>
     </form>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
 import { useContactStore } from '../stores/useContactStore';
-import type { Person } from '../services/contactService';
-import router from '../routers';
+import { Person } from '../services/contactService';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
 const contactStore = useContactStore();
+const isCreateMode = ref<boolean>(true);
 
 const contact = ref<Person>({
   id: '',
@@ -62,19 +68,40 @@ const contact = ref<Person>({
   zip: '',
 });
 
-const handleSubmit = async () => {
-  try {
-    await contactStore.addNewContact(contact.value);
-    alert('Contact saved successfully!');
-    router.push('/contacts');
-  } catch (err) {
-    console.error('Error saving contact:', err);
-    alert('An error occurred while saving the contact.');
+const loadContact = async () => {
+  const contactID = route.params.id as string;
+  if (contactID) {
+    isCreateMode.value = false;
+    try {
+      const existingContact = await contactStore.getContact(contactID);
+      contact.value = { ...existingContact } as Person;
+    } catch (err) {
+      console.error('Error occured while loading the contact:', err);
+      alert('Error occured while loading the contact');
+    }
   }
 };
-
-const handleCancel = () => {
-  resetForm();
+const handleSubmit = async () => {
+  try {
+    if (isCreateMode.value) {
+      await contactStore.addNewContact(contact.value);
+      alert('Contact saved succesfully');
+      router.push('/contacts');
+    } else {
+      await contactStore.updateContact(contact.value.id, contact.value);
+      alert('Contact saved succesfully');
+    }
+  } catch (err) {
+    console.error('Error occured while handling the submission');
+    alert('An error occured');
+  }
+};
+const handleCancel = async () => {
+  if (isCreateMode.value) {
+    resetForm();
+  } else {
+    router.push('/contacts');
+  }
 };
 
 const resetForm = () => {
@@ -89,6 +116,8 @@ const resetForm = () => {
     zip: '',
   };
 };
+onMounted(() => {
+  loadContact();
+});
 </script>
-
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
