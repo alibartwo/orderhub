@@ -47,8 +47,8 @@
         <label for="items">Order Items</label>
         <div v-for="(item, index) in order.items" :key="index" class="item-row">
           <input v-model="item.productID" placeholder="Product ID" />
-          <input v-model="item.quantity" placeholder="Product ID" />
-          <input v-model="item.itemPrice" placeholder="Product ID" />
+          <input v-model="item.quantity" placeholder="Quantity" />
+          <input v-model="item.itemPrice" placeholder="Product Price" />
           <button type="button" @click="removeItem(index)" class="action-button">❌</button>
         </div>
         <button type="button" @click="addItemField" class="add-item-button">Add Item</button>
