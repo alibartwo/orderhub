@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import './assets/styles.scss';
 import router from './routers';
-import AppLayout from './layout/AppLayout.vue';
+import AppLayout from './layouts/AppLayout.vue';
 
 const pinia = createPinia();
 const app = createApp(AppLayout);
