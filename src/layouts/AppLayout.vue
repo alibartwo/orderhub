@@ -1,3 +1,5 @@
+<!-- this component serves as the main layout of the application. -->
+
 <template>
   <div>
     <AppHeader />
@@ -13,4 +15,4 @@ import AppHeader from './AppHeader.vue';
 import AppFooter from './AppFooter.vue';
 </script>
 
-<style scoped></style>
+<style lang="scss"></style>

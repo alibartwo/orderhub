@@ -1,3 +1,5 @@
+<!-- This component represents the header of the application. -->
+
 <template>
   <header class="app-header">
     <nav>
@@ -9,5 +11,6 @@
     </nav>
   </header>
 </template>
+
 <script setup></script>
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
