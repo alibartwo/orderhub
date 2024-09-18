@@ -12,14 +12,17 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+
 import { useContactStore } from '../stores/useContactStore';
 import { ref } from 'vue';
 import router from '../routers';
-const contactStore = useContactStore();
-const { removeAllContacts, loadSampleData, contacts } = contactStore;
 
-const loadSampleContacts = () => {
+// store usage
+const contactStore = useContactStore();
+const { removeAllContacts, loadSampleData } = contactStore;
+
+const loadSampleContacts = (): void => {
   const confirmation = confirm(
     'Are you sure you want to load sample contacts? This action will be delete existing contacts and create the sample ones'
   );
@@ -27,31 +30,32 @@ const loadSampleContacts = () => {
     loadSampleData();
   }
 };
-const showCreateForm = () => {
+const showCreateForm = (): void => {
   router.push('/create-contact');
 };
 
-const confirmDeleteAllContacts = () => {
+const confirmDeleteAllContacts = (): void => {
   const confirmation = confirm('Are you sure you want to delete all contacts? This action cannot be undone.');
   if (confirmation) {
     removeAllContacts();
   }
 };
 
-const searchTerm = ref('');
-const showSearchInput = ref(false);
+// this section deals with search functionality
+const searchTerm = ref<string>('');
+const showSearchInput = ref<boolean>(false);
 
-const toggleSearch = () => {
+const toggleSearch = (): void => {
   showSearchInput.value = !showSearchInput.value;
 };
 
-const searchContact = () => {
+const searchContact = (): void => {
   if (searchTerm.value) {
-    // contactStore.searchContacts(searchTerm.value);
+    // contactStore.searchContacts(searchTerm.value); // sample function for searching contacts
   } else {
     alert('Please enter a search term.');
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
