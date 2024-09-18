@@ -12,14 +12,16 @@
   </div>
 </template>
 
-<script setup>
-import { useOrderStore } from '../stores/useOrderStore';
+<script lang="ts" setup>
 import { ref } from 'vue';
 import router from '../routers';
-const orderStore = useOrderStore();
-const { removeAllOrders, loadSampleData, orders } = orderStore;
+import { useOrderStore } from '../stores/useOrderStore';
 
-const loadSampleOrders = () => {
+const orderStore = useOrderStore();
+const { removeAllOrders, loadSampleData } = orderStore;
+
+// load sample orders after confirmation
+const loadSampleOrders = (): void => {
   const confirmation = confirm(
     'Are you sure you want to load sample orders? This action will be delete existing orders and create the sample ones'
   );
@@ -27,27 +29,29 @@ const loadSampleOrders = () => {
     loadSampleData();
   }
 };
-const showCreateForm = () => {
+
+const showCreateForm = (): void => {
   router.push('/create-order');
 };
 
-const confirmDeleteAllContacts = () => {
+const confirmDeleteAllContacts = (): void => {
   const confirmation = confirm('Are you sure you want to delete all orders? This action cannot be undone.');
   if (confirmation) {
     removeAllOrders();
   }
 };
 
-const searchTerm = ref('');
-const showSearchInput = ref(false);
+// this section deals with search functionality
+const searchTerm = ref<string>('');
+const showSearchInput = ref<boolean>(false);
 
 const toggleSearch = () => {
   showSearchInput.value = !showSearchInput.value;
 };
 
-const searchOrder = () => {
+const searchOrder = (): void => {
   if (searchTerm.value) {
-    // orderStore.searchOrders(searchTerm.value);
+    // orderStore.searchOrders(searchTerm.value); // sample function
   } else {
     alert('Please enter a search term.');
   }
