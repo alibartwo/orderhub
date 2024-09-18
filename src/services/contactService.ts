@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
+// define the Person interface for the API data structure
 export interface Person {
   id: string;
   firstName: string;
@@ -14,9 +15,17 @@ export interface Person {
 
 const API_BASE_URL = 'http://188.245.151.183:8080/api/v1/person';
 
+// create an axios instance with a base URL
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const getAllContacts = async (): Promise<Person[]> => {
   try {
-    const response: AxiosResponse<Person[]> = await axios.get(API_BASE_URL);
+    const response: AxiosResponse<Person[]> = await apiClient.get('/');
     return response.data;
   } catch (error) {
     console.error('Error while trying retrieve contacts:', error);
@@ -26,7 +35,7 @@ const getAllContacts = async (): Promise<Person[]> => {
 
 const createContact = async (contact: Person): Promise<Person> => {
   try {
-    const response: AxiosResponse<Person> = await axios.post(API_BASE_URL, contact);
+    const response: AxiosResponse<Person> = await apiClient.post('/', contact);
     return response.data;
   } catch (error) {
     console.error('Error occured while creating a contact', error);
@@ -38,14 +47,14 @@ const deleteAllContacts = async (): Promise<void> => {
   try {
     await axios.delete(API_BASE_URL);
   } catch (error) {
-    console.error('Error occured while deletinn all contacts', error);
+    console.error('Error occured while deleting all contacts', error);
     throw error;
   }
 };
 
 const getContactByID = async (id: string): Promise<Person> => {
   try {
-    const response: AxiosResponse<Person> = await axios.get(`${API_BASE_URL}/${id}`);
+    const response: AxiosResponse<Person> = await apiClient.get(`/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error occured while retrieving a contact by ID:', error);
@@ -55,7 +64,7 @@ const getContactByID = async (id: string): Promise<Person> => {
 
 const updateContactByID = async (id: string, contact: Person): Promise<Person> => {
   try {
-    const response: AxiosResponse<Person> = await axios.put(`${API_BASE_URL}/${id}`, contact);
+    const response: AxiosResponse<Person> = await apiClient.put(`/${id}`, contact);
     return response.data;
   } catch (error) {
     console.error('Error occured while updating a contact:', error);
@@ -65,7 +74,7 @@ const updateContactByID = async (id: string, contact: Person): Promise<Person> =
 
 const patchContact = async (id: string, contact: Partial<Person>): Promise<Person> => {
   try {
-    const response: AxiosResponse<Person> = await axios.patch(`${API_BASE_URL}/${id}`, contact);
+    const response: AxiosResponse<Person> = await apiClient.patch(`/${id}`, contact);
     return response.data;
   } catch (error) {
     console.error('Error occured while patching a contact:', error);
@@ -75,10 +84,18 @@ const patchContact = async (id: string, contact: Partial<Person>): Promise<Perso
 
 const deleteContact = async (id: string): Promise<void> => {
   try {
-    await axios.delete(`${API_BASE_URL}/${id}`);
+    await apiClient.delete(`/${id}`);
   } catch (error) {
-    console.error('Error occured while deleting a conctact', error);
+    console.error('Error occured while deleting a contact', error);
     throw error;
   }
 };
-export { getAllContacts, createContact, deleteAllContacts, getContactByID, updateContactByID, patchContact, deleteContact };
+export {
+  getAllContacts,
+  createContact,
+  deleteAllContacts,
+  getContactByID,
+  updateContactByID,
+  patchContact,
+  deleteContact,
+};
