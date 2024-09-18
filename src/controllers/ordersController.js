@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
 
@@ -13,7 +14,7 @@ const findAllUsingGET = (req, res) => {
 
 // create a new order
 const createUsingPOST = (req, res) => {
-  const newOrder = req.body;
+  const newOrder = { ...req.body, orderID: uuidv4() };
   orders.push(newOrder);
   res.status(201).json(newOrder);
 };
