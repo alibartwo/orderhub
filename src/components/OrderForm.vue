@@ -15,7 +15,7 @@
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
           </select>
-          <button @click="goToCreateContact" class="action-button">➕</button>
+          <button type="button" @click="goToCreateContact" class="action-button">➕</button>
         </div>
       </div>
 
@@ -27,7 +27,7 @@
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
           </select>
-          <button @click="goToCreateContact" class="action-button">➕</button>
+          <button type="button" @click="goToCreateContact" class="action-button">➕</button>
         </div>
       </div>
 
@@ -39,7 +39,7 @@
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
           </select>
-          <button @click="goToCreateContact" class="action-button">➕</button>
+          <button type="button" @click="goToCreateContact" class="action-button">➕</button>
         </div>
       </div>
 
