@@ -13,7 +13,7 @@ export interface Person {
   extensionFields?: Record<string, any>;
 }
 
-const API_BASE_URL = 'http://188.245.151.183:8080/api/v1/person';
+const API_BASE_URL = import.meta.env.VITE_CONTACT_SERVICE_URL || 'http://localhost:8080/api/v1/person';
 
 // create an axios instance with a base URL
 const apiClient = axios.create({

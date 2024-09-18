@@ -21,7 +21,7 @@ export interface OrderItem {
   itemPrice: number;
 }
 
-const API_BASE_URL = 'http://188.245.151.183:8081/api/v1/order';
+const API_BASE_URL = import.meta.env.VITE_ORDER_SERVICE_URL || 'http://localhost:8081/api/v1/order';
 
 // create an axios instance with a base URL
 const apiClient = axios.create({
