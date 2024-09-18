@@ -9,29 +9,39 @@
 
       <div class="form-field">
         <label for="soldTo">Sold To</label>
-        <select v-model="order.soldTo" id="soldto">
-          <option v-for="contact in contacts" :key="contact.id" :value="contact">
-            {{ contact.firstName }} {{ contact.lastName }}
-          </option>
-        </select>
+        <div class="select-button-container">
+          <select v-model="order.soldTo" id="soldto">
+            <option v-for="contact in contacts" :key="contact.id" :value="contact">
+              {{ contact.firstName }} {{ contact.lastName }}
+            </option>
+          </select>
+          <button @click="goToCreateContact" class="action-button">➕</button>
+        </div>
       </div>
 
       <div class="form-field">
         <label for="billTo">Bill To</label>
-        <select v-model="order.billTo" id="billTo">
-          <option v-for="contact in contacts" :key="contact.id" :value="contact">
-            {{ contact.firstName }} {{ contact.lastName }}
-          </option>
-        </select>
+        <div class="select-button-container">
+          <select v-model="order.billTo" id="billTo">
+            <option v-for="contact in contacts" :key="contact.id" :value="contact">
+              {{ contact.firstName }} {{ contact.lastName }}
+            </option>
+          </select>
+          <button @click="goToCreateContact" class="action-button">➕</button>
+        </div>
       </div>
 
       <div class="form-field">
         <label for="shipTo">Ship To</label>
-        <select v-model="order.shipTo" id="shipTo">
-          <option v-for="contact in contacts" :key="contact.id" :value="contact">
-            {{ contact.firstName }} {{ contact.lastName }}
-          </option>
-        </select>
+        <div class="select-button-container">
+          <select v-model="order.shipTo" id="shipTo">
+            <option v-for="contact in contacts" :key="contact.id" :value="contact">
+              {{ contact.firstName }} {{ contact.lastName }}
+            </option>
+            <option></option>
+          </select>
+          <button @click="goToCreateContact" class="action-button">➕</button>
+        </div>
       </div>
 
       <div class="form-field">
@@ -86,7 +96,6 @@ const contacts = computed(() => contactStore.contacts);
 // determine if we are create or edit mode
 const isCreateMode = ref<boolean>(true);
 
-
 const order = ref({ ...initialOrder.value });
 
 // if an ID comes from the URL, switch the mode and load the contact data
@@ -113,6 +122,9 @@ const removeItem = async (index: number) => {
   order.value.items.splice(index, 1);
 };
 
+const goToCreateContact = () => {
+  router.push('create-contact');
+};
 
 // handle form submission based on create or update mode
 const handleSubmit = async () => {

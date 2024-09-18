@@ -106,4 +106,17 @@
       color: white;
     }
   }
+  .select-button-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    select {
+      flex: 1;
+    }
+    .action-button {
+      position: absolute;
+      right: -40px
+    }
+  }
 }
