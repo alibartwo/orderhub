@@ -1,9 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const orderRoutes = require('./routes/orderRoutes');
+const swaggerSetup = require('./swagger'); 
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+
+swaggerSetup(app);
 
 app.use('/api/v1/order', orderRoutes);
 
