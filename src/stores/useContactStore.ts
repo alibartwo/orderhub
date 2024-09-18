@@ -12,6 +12,7 @@ import {
 import { sampleContacts } from '../data/sampleContacts';
 
 export const useContactStore = defineStore('contact', () => {
+  // reactive state properties
   const contacts = ref<Person[]>([]);
   const loading = ref<boolean>(false);
   const error = ref<string | null>(null);
@@ -26,7 +27,7 @@ export const useContactStore = defineStore('contact', () => {
       console.log(data);
     } catch (err) {
       error.value = 'Error occured while loading contacts';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -45,7 +46,7 @@ export const useContactStore = defineStore('contact', () => {
       await loadContacts();
     } catch (err) {
       error.value = 'Error occured while loading the sample data';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -57,7 +58,7 @@ export const useContactStore = defineStore('contact', () => {
       contacts.value = [];
     } catch (err) {
       error.value = 'Error occured while removing the contacts';
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -71,7 +72,7 @@ export const useContactStore = defineStore('contact', () => {
       console.log('New contact created succesfully:', newContact);
     } catch (err) {
       error.value = 'Error occured while creating new contact';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -83,7 +84,7 @@ export const useContactStore = defineStore('contact', () => {
       contacts.value = contacts.value.filter((contact) => contact.id !== id);
     } catch (err) {
       error.value = 'Error occured while deleting the contact';
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -96,7 +97,7 @@ export const useContactStore = defineStore('contact', () => {
       return contact;
     } catch (err) {
       error.value = 'Error occured while fetching the contact';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -115,7 +116,7 @@ export const useContactStore = defineStore('contact', () => {
       }
     } catch (err) {
       error.value = 'Error occured while updating the contact';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }

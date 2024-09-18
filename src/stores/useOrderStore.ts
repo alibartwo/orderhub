@@ -12,6 +12,7 @@ import {
 import { sampleOrders } from '../data/sampleOrders';
 
 export const useOrderStore = defineStore('order', () => {
+  // reactive state properties
   const orders = ref<Order[]>([]);
   const loading = ref<boolean>(false);
   const error = ref<string | null>(null);
@@ -26,7 +27,7 @@ export const useOrderStore = defineStore('order', () => {
       console.log(data);
     } catch (err) {
       error.value = 'Error occured while loading orders';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -45,11 +46,11 @@ export const useOrderStore = defineStore('order', () => {
       await loadOrders();
     } catch (err) {
       error.value = 'Error occured while loading the sample data';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
-  }
+  };
 
   const removeAllOrders = async () => {
     error.value = null;
@@ -58,7 +59,7 @@ export const useOrderStore = defineStore('order', () => {
       orders.value = [];
     } catch (err) {
       error.value = 'Error occured while deleting orders';
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -71,7 +72,7 @@ export const useOrderStore = defineStore('order', () => {
       console.log('New order added succesfully', newOrder);
     } catch (err) {
       error.value = 'Error occured while adding a new order';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -84,7 +85,7 @@ export const useOrderStore = defineStore('order', () => {
       orders.value = orders.value.filter((order) => order.orderID !== id);
     } catch (err) {
       error.value = 'Error occured while removing the order';
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -96,7 +97,7 @@ export const useOrderStore = defineStore('order', () => {
       return order;
     } catch (err) {
       error.value = 'Error occured while retrieving the order';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
@@ -113,11 +114,22 @@ export const useOrderStore = defineStore('order', () => {
       }
     } catch (err) {
       error.value = 'Error occured while updating the order';
-      console.log(err);
+      console.error(err);
     } finally {
       loading.value = false;
     }
   };
 
-  return { orders, loading, error, loadOrders, loadSampleData, removeAllOrders, addNewOrder, removeOrder, getOrder, updateOrder };
+  return {
+    orders,
+    loading,
+    error,
+    loadOrders,
+    loadSampleData,
+    removeAllOrders,
+    addNewOrder,
+    removeOrder,
+    getOrder,
+    updateOrder,
+  };
 });
