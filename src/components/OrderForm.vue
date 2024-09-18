@@ -38,7 +38,6 @@
             <option v-for="contact in contacts" :key="contact.id" :value="contact">
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
-            <option></option>
           </select>
           <button @click="goToCreateContact" class="action-button">➕</button>
         </div>
@@ -52,6 +51,15 @@
       <div class="form-field">
         <label for="taxValue">Tax Value</label>
         <input v-model="order.taxValue" type="text" id="taxValue" />
+      </div>
+
+      <div class="form-field">
+        <label for="currencyCode">Currency Code</label>
+        <select v-model="order.currencyCode" id="currencyCode">
+          <option>USD</option>
+          <option>EUR</option>
+          <option>TRY</option>
+        </select>
       </div>
 
       <div class="form-field">
