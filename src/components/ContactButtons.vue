@@ -24,7 +24,7 @@ const { removeAllContacts, loadSampleData } = contactStore;
 
 const loadSampleContacts = (): void => {
   const confirmation = confirm(
-    'Are you sure you want to load sample contacts? This action will be delete existing contacts and create the sample ones'
+    'Are you sure you want to load sample contacts? This action will delete your existing contacts and replace them with the sample ones.'
   );
   if (confirmation) {
     loadSampleData();
