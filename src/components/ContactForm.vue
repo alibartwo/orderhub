@@ -1,6 +1,7 @@
 <template>
   <div class="form">
     <form @submit.prevent="handleSubmit">
+      <!-- inputs for form fields-->
       <div class="form-field">
         <label for="firstName">First Name</label>
         <input v-model="contact.firstName" type="text" id="firstName" required />
@@ -36,6 +37,7 @@
         <input v-model="contact.zip" type="text" id="zip" />
       </div>
 
+      <!-- buttons for form operations -->
       <div class="form-buttons">
         <button type="submit" class="submit-button">{{ isCreateMode ? 'Create Contact' : 'Save Changes' }}</button>
         <button type="button" class="cancel-button" @click="handleCancel">
@@ -51,23 +53,19 @@ import { ref, onMounted } from 'vue';
 import { useContactStore } from '../stores/useContactStore';
 import { Person } from '../services/contactService';
 import { useRoute, useRouter } from 'vue-router';
+import { useSchemas } from '../composables/useSchemas';
 
 const route = useRoute();
 const router = useRouter();
 const contactStore = useContactStore();
+const { initialContact } = useSchemas();
+
+// determine if we are create or edit mode
 const isCreateMode = ref<boolean>(true);
 
-const contact = ref<Person>({
-  id: '',
-  firstName: '',
-  lastName: '',
-  country: '',
-  city: '',
-  streetAddress: '',
-  houseNumber: '',
-  zip: '',
-});
+const contact = ref({ ...initialContact.value });
 
+// if an ID comes from the URL, switch the mode and load the contact data
 const loadContact = async () => {
   const contactID = route.params.id as string;
   if (contactID) {
@@ -81,6 +79,8 @@ const loadContact = async () => {
     }
   }
 };
+
+// handle form submission based on create or update mode
 const handleSubmit = async () => {
   try {
     if (isCreateMode.value) {
@@ -96,6 +96,8 @@ const handleSubmit = async () => {
     alert('An error occured');
   }
 };
+
+// handle cancel or reset button click
 const handleCancel = async () => {
   if (isCreateMode.value) {
     resetForm();
@@ -105,17 +107,10 @@ const handleCancel = async () => {
 };
 
 const resetForm = () => {
-  contact.value = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    country: '',
-    city: '',
-    streetAddress: '',
-    houseNumber: '',
-    zip: '',
-  };
+  contact.value = { ...initialContact.value };
 };
+
+// on component mount, determine if is it create mode or edit mode
 onMounted(() => {
   loadContact();
 });
