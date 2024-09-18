@@ -5,7 +5,7 @@ const path = require('path');
 // path to the mock data where orders are stored
 const ordersFilePath = path.join(__dirname, '../data/orders.json');
 
-let orders = JSON.parse(fs.readFileSync(ordersFilePath, 'utf-8'));
+const orders = JSON.parse(fs.readFileSync(ordersFilePath, 'utf-8'));
 
 // retrieve all orders
 const findAllUsingGET = (req, res) => {
@@ -21,7 +21,7 @@ const createUsingPOST = (req, res) => {
 
 // delete all orders
 const deleteAllUsingDELETE = (req, res) => {
-  orders = [];
+  orders.splice(0, orders.length);
   res.status(204).json({ message: 'All orders have been deleted successfully!' });
 };
 
