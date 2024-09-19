@@ -4,13 +4,13 @@
       <!-- inputs for form fields-->
       <div class="form-field">
         <label for="orderDate">Order Date</label>
-        <input v-model="order.orderDate" type="text" id="orderDate" />
+        <input v-model="order.orderDate" type="text" id="orderDate" required>
       </div>
 
       <div class="form-field">
         <label for="soldTo">Sold To</label>
         <div class="select-button-container">
-          <select v-model="order.soldTo" id="soldto">
+          <select v-model="order.soldTo" id="soldto" required>
             <option v-for="contact in contacts" :key="contact.id" :value="contact">
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
@@ -22,7 +22,7 @@
       <div class="form-field">
         <label for="billTo">Bill To</label>
         <div class="select-button-container">
-          <select v-model="order.billTo" id="billTo">
+          <select v-model="order.billTo" id="billTo" required>
             <option v-for="contact in contacts" :key="contact.id" :value="contact">
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
@@ -34,7 +34,7 @@
       <div class="form-field">
         <label for="shipTo">Ship To</label>
         <div class="select-button-container">
-          <select v-model="order.shipTo" id="shipTo">
+          <select v-model="order.shipTo" id="shipTo" required>
             <option v-for="contact in contacts" :key="contact.id" :value="contact">
               {{ contact.firstName }} {{ contact.lastName }}
             </option>
@@ -45,17 +45,17 @@
 
       <div class="form-field">
         <label for="orderValue">Order Value</label>
-        <input v-model="order.orderValue" type="text" id="orderValue" />
+        <input v-model="order.orderValue" type="text" id="orderValue" required/>
       </div>
 
       <div class="form-field">
         <label for="taxValue">Tax Value</label>
-        <input v-model="order.taxValue" type="text" id="taxValue" />
+        <input v-model="order.taxValue" type="text" id="taxValue" required>
       </div>
 
       <div class="form-field">
         <label for="currencyCode">Currency Code</label>
-        <select v-model="order.currencyCode" id="currencyCode">
+        <select v-model="order.currencyCode" id="currencyCode" required>
           <option>USD</option>
           <option>EUR</option>
           <option>TRY</option>
@@ -131,7 +131,12 @@ const removeItem = async (index: number) => {
 };
 
 const goToCreateContact = () => {
-  router.push('create-contact');
+  router.push({
+    name: 'Create Contact',
+    query: {
+      returnTo: route.fullPath, // pass the current path so we can return to it later
+    },
+  });
 };
 
 // handle form submission based on create or update mode

@@ -86,7 +86,15 @@ const handleSubmit = async () => {
     if (isCreateMode.value) {
       await contactStore.addNewContact(contact.value);
       alert('Contact saved succesfully');
-      router.push('/contacts');
+      
+      // if the route includes a 'returnTo' query parameter, navigate back to that path.
+      if (route.query.returnTo) {
+        router.push({
+          path: route.query.returnTo as string,
+        });
+      } else {
+        router.push('/contacts');
+      }
     } else {
       await contactStore.updateContact(contact.value.id, contact.value);
       alert('Contact saved succesfully');
@@ -100,7 +108,14 @@ const handleSubmit = async () => {
 // handle cancel or reset button click
 const handleCancel = async () => {
   if (isCreateMode.value) {
-    resetForm();
+    // if the route includes a 'returnTo' query parameter, navigate back to that path.
+    if (route.query.returnTo) {
+      router.push({
+        path: route.query.returnTo as string,
+      });
+    } else {
+      resetForm();
+    }
   } else {
     router.push('/contacts');
   }
