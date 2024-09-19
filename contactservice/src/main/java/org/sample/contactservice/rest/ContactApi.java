@@ -18,109 +18,108 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import io.swagger.annotations.ApiOperation;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/person")
 public class ContactApi {
-	
+
 	@Autowired
-	private PersonService personService;	
-	
+	private PersonService personService;
+
 	@PostMapping
-	@ApiOperation(value="Create Person", notes="This function creates a new person entry on the DB."
+	@ApiOperation(value = "Create Person", notes = "This function creates a new person entry on the DB."
 			+ "Externally supplied ids are ignored.")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Person> create(@RequestBody Person person) {			
+	public ResponseEntity<Person> create(@RequestBody Person person) {
 		person.setId(null);
-		return new ResponseEntity<Person>(personService.savePerson(person), HttpStatus.CREATED);		
+		return new ResponseEntity<Person>(personService.savePerson(person), HttpStatus.CREATED);
 	}
-	
-	
+
 	@GetMapping
-	@ApiOperation(value="Get Person List", notes="This function retrieves all persons from the Database.")
+	@ApiOperation(value = "Get Person List", notes = "This function retrieves all persons from the Database.")
 	public ResponseEntity<Person[]> findAll(
-			@RequestParam(required = false) Integer page, 
-			@RequestParam(required = false) Integer size ) {
-		
+			@RequestParam(required = false) Integer page,
+			@RequestParam(required = false) Integer size) {
+
 		if (page == null || size == null) {
 			return new ResponseEntity<Person[]>(
-				StreamSupport.stream(personService.listPersons().spliterator(), false)
-					.toArray(Person[]::new), 
+					StreamSupport.stream(personService.listPersons().spliterator(), false)
+							.toArray(Person[]::new),
 					HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Person[]>(
-				StreamSupport.stream(personService.listPersons(page.intValue(),size.intValue()).spliterator(), false)
-					.toArray(Person[]::new), 
+					StreamSupport
+							.stream(personService.listPersons(page.intValue(), size.intValue()).spliterator(), false)
+							.toArray(Person[]::new),
 					HttpStatus.OK);
 		}
 	}
-	
-	
-	
-	@PutMapping(path="/{id}")
-	@ApiOperation(value="Update Person", notes="This function updates a person from on the database. "
+
+	@PutMapping(path = "/{id}")
+	@ApiOperation(value = "Update Person", notes = "This function updates a person from on the database. "
 			+ "This does not support delta updates.")
-	public ResponseEntity<Person> upsert(@PathVariable("id") String id, 
+	public ResponseEntity<Person> upsert(@PathVariable("id") String id,
 			@RequestBody Person person) {
-		
+
 		person.setId(id);
-		
-		return new ResponseEntity<Person>(personService.savePerson(person), HttpStatus.OK); 
+
+		return new ResponseEntity<Person>(personService.savePerson(person), HttpStatus.OK);
 	}
-	
-	@PatchMapping(path="/{id}")
-	@ApiOperation(value="Update Person", notes="This function updates a person from on the database. "
+
+	@PatchMapping(path = "/{id}")
+	@ApiOperation(value = "Update Person", notes = "This function updates a person from on the database. "
 			+ "This does support delta updates.")
-	public ResponseEntity<Person> deltaUpdate(@PathVariable("id") String id, 
-			@RequestBody Person person) {	
-			
+	public ResponseEntity<Person> deltaUpdate(@PathVariable("id") String id,
+			@RequestBody Person person) {
+
 		person.setId(id);
-		return new ResponseEntity<Person>(personService.deltaUpdate(person), HttpStatus.OK); 
+		return new ResponseEntity<Person>(personService.deltaUpdate(person), HttpStatus.OK);
 	}
-	
-	@GetMapping(path="/{id}")
-	@ApiOperation(value="Read Person by ID", notes="This function reads a single person from the database.")
+
+	@GetMapping(path = "/{id}")
+	@ApiOperation(value = "Read Person by ID", notes = "This function reads a single person from the database.")
 	public ResponseEntity<Person> read(@PathVariable("id") String id) {
-		
-		return new ResponseEntity<Person>(personService.findPerson(id), HttpStatus.OK); 
+
+		return new ResponseEntity<Person>(personService.findPerson(id), HttpStatus.OK);
 	}
-	
-	@DeleteMapping(path="/{id}")
-	@ApiOperation(value="Delete Person by ID", notes="This function deletes a person from the database.")
+
+	@DeleteMapping(path = "/{id}")
+	@ApiOperation(value = "Delete Person by ID", notes = "This function deletes a person from the database.")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		personService.deletePerson(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@DeleteMapping
-	@ApiOperation(value="Delete all Persons in DB", notes="This function deletes all persons from the database.")
+	@ApiOperation(value = "Delete all Persons in DB", notes = "This function deletes all persons from the database.")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> deleteAll() {
 		personService.deleteAllPersons();
 		return ResponseEntity.noContent().build();
-		
+
 	}
-	
-	@PostMapping(path="/search")
-	@ApiOperation(value="Search for People", notes="This function performs a people search in the database, and returns the persons that meet the criteria " + 
+
+	@PostMapping(path = "/search")
+	@ApiOperation(value = "Search for People", notes = "This function performs a people search in the database, and returns the persons that meet the criteria "
+			+
 			"specified in the request.")
 	public ResponseEntity<Person[]> search(@RequestBody Person person,
-			@RequestParam(required = false) Integer page, 
+			@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer size) {
 		if (page == null || size == null) {
 			return new ResponseEntity<Person[]>(
-				StreamSupport.stream(personService.search(person).spliterator(), false)
-								.toArray(Person[]::new),
-								 HttpStatus.OK);
+					StreamSupport.stream(personService.search(person).spliterator(), false)
+							.toArray(Person[]::new),
+					HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Person[]>(
 					StreamSupport.stream(personService.search(person, page, size).spliterator(), false)
-									.toArray(Person[]::new),
-									 HttpStatus.OK);
+							.toArray(Person[]::new),
+					HttpStatus.OK);
 		}
 	}
 
