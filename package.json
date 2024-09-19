@@ -1,0 +1,18 @@
+{
+  "name": "orderhub-mock",
+  "version": "1.0.0",
+  "description": "A mock API server to manage orders",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "author": "Ali Bartu",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^10.0.0",
+    "yamljs": "^0.3.0"
+  }
+}
